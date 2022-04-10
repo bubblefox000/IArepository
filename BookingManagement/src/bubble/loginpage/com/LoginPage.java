@@ -14,6 +14,7 @@ import javax.swing.JTextField;
 import javax.swing.text.AbstractDocument.Content;
 
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -27,7 +28,7 @@ public class LoginPage {
 
 	private JFrame frame;
 	private JPasswordField tbPassword;
-	private JTextField textField;
+	private JTextField tbUsername;
 
 	/**
 	 * Launch the application.
@@ -43,6 +44,7 @@ public class LoginPage {
 				}
 			
 			}
+			
 			
 			
 		});
@@ -73,14 +75,45 @@ public class LoginPage {
 		JButton btnLogin = new JButton("Login");
 		btnLogin.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				JOptionPane.showMessageDialog(null, "Successful login!");
+			
 				
 			   try {
+				 
+				   //Query fetches the data from the Database
+				   String query="select * from LoginData where username=? and password=? ";
+				   PreparedStatement pst=connection.prepareStatement(query);
+				   pst.setString(1, tbUsername.getText());
+				   pst.setString(2, tbPassword.getText());
+				   
+				   ResultSet rs = pst.executeQuery();
+				   int count = 0;
+				   while (rs.next()) {
+					   count = count+1;
+					   
+					//if the result is 1 that means the username and password is correct, if greater than one that means there is a duplicate 
+					
+				}
+				   if (count == 1 ) {
+					   JOptionPane.showMessageDialog(null, "Username and password is correct");
+					   
+					   }
+				   else if(count > 1){
+					   
+					   JOptionPane.showMessageDialog(null, "Duplicate Username and password");					   					 				
+				}
+				   else {
+					      JOptionPane.showMessageDialog(btnLogin, "Username and password is not correct");
+					   }
+				   //closes the connection with the database for future use
+				   rs.close();
+				   pst.close();
+				
 				   
 				
 			} catch (Exception e2) {
-				JOptionPane.showMessageDialog(null, e);
+				JOptionPane.showMessageDialog(null, e2);
 			}
+			 
 			
 				
 			}
@@ -108,10 +141,10 @@ public class LoginPage {
 		tbPassword.setBounds(140, 135, 123, 20);
 		frame.getContentPane().add(tbPassword);
 		
-		textField = new JTextField();
-		textField.setBounds(140, 85, 123, 20);
-		frame.getContentPane().add(textField);
-		textField.setColumns(10);
+		tbUsername = new JTextField();
+		tbUsername.setBounds(140, 85, 123, 20);
+		frame.getContentPane().add(tbUsername);
+		tbUsername.setColumns(10);
 	}
 		}
 
