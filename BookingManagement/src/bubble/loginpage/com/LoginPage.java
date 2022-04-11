@@ -1,8 +1,10 @@
 package bubble.loginpage.com;
 
+
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.Window;
 import java.sql.Connection;
 
 import javax.swing.JButton;
@@ -12,6 +14,8 @@ import javax.swing.JOptionPane;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.text.AbstractDocument.Content;
+
+import bubble.mainpage.com.MainPage;
 
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -42,6 +46,7 @@ public class LoginPage {
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
+				
 			
 			}
 			
@@ -95,6 +100,16 @@ public class LoginPage {
 				}
 				   if (count == 1 ) {
 					   JOptionPane.showMessageDialog(null, "Username and password is correct");
+					   
+					   frame.dispose();   //removes old frame
+					   
+					   MainPage mainpage = new MainPage();    //makes mainpage frame visible
+					   mainpage.mainpage.setVisible(true);
+					   
+					   
+					
+					  
+					  
 					   
 					   }
 				   else if(count > 1){
