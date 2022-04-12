@@ -18,10 +18,14 @@ public class SqliteConnection {
     		JOptionPane.showMessageDialog(null, "Connection successful");
     		return conn;
 			
-		} catch (Exception e) {
+		} catch (SQLException e) {
 			JOptionPane.showMessageDialog(null, e);
 			return null;
 			
+			}
+    	catch (Exception e2) {
+    		JOptionPane.showMessageDialog(null, e2);
+			return null;
 		}
     }
        

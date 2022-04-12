@@ -105,12 +105,7 @@ public class LoginPage {
 					   
 					   MainPage mainpage = new MainPage();    //makes mainpage frame visible
 					   mainpage.mainpage.setVisible(true);
-					   
-					   
-					
-					  
-					  
-					   
+					   					   
 					   }
 				   else if(count > 1){
 					   

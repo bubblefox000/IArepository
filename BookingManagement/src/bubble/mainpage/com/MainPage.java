@@ -5,6 +5,12 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 
+import bubble.booking.com.BookingAdd;
+
+import javax.swing.JButton;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+
 
 public class MainPage {
 
@@ -43,6 +49,23 @@ public class MainPage {
 		mainpage.setBounds(100, 100, 450, 300);
 		mainpage.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		mainpage.getContentPane().setLayout(null);
+		
+		JButton btnNewReservation = new JButton("Add new reservation");
+		btnNewReservation.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				mainpage.dispose();
+				
+				BookingAdd bookingadd = new BookingAdd();
+				BookingAdd.bookingadd.setVisible(true);
+			}
+		});
+		btnNewReservation.setBounds(10, 227, 187, 23);
+		mainpage.getContentPane().add(btnNewReservation);
+		
+		JButton btnNewButton_1 = new JButton("delete reservation");
+		btnNewButton_1.setBounds(237, 227, 187, 23);
+		mainpage.getContentPane().add(btnNewButton_1);
 		
 	
 	}
