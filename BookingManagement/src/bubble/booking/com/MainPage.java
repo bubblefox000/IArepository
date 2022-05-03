@@ -1,12 +1,9 @@
-package bubble.mainpage.com;
+package bubble.booking.com;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-
-import bubble.booking.com.BookingAdd;
-
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -14,7 +11,7 @@ import java.awt.event.ActionEvent;
 
 public class MainPage {
 
-	public JFrame mainpage;     //must be public for access from LoginPage
+	public static JFrame mainpage;     //must be public for access from LoginPage
 
 	/**
 	 * Launch the application.

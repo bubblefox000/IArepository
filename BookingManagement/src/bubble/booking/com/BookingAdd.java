@@ -5,13 +5,17 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JTextField;
 import javax.swing.JLabel;
+import javax.swing.JButton;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class BookingAdd {
 
 	public static JFrame bookingadd;
-	private JTextField textField;
+	private JTextField tbCheckIn;
 	private JTextField textField_1;
 	private JTextField textField_2;
+	private JButton btnAdd;
 
 	/**
 	 * Launch the application.
@@ -24,7 +28,11 @@ public class BookingAdd {
 					window.bookingadd.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
+					
+					
 				}
+				
+				
 			}
 		});
 	}
@@ -45,10 +53,10 @@ public class BookingAdd {
 		bookingadd.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		bookingadd.getContentPane().setLayout(null);
 		
-		textField = new JTextField();
-		textField.setBounds(20, 90, 86, 20);
-		bookingadd.getContentPane().add(textField);
-		textField.setColumns(10);
+		tbCheckIn = new JTextField();
+		tbCheckIn.setBounds(20, 90, 86, 20);
+		bookingadd.getContentPane().add(tbCheckIn);
+		tbCheckIn.setColumns(10);
 		
 		JLabel lblNewLabel = new JLabel("Time of check in:");
 		lblNewLabel.setBounds(20, 65, 124, 14);
@@ -71,5 +79,33 @@ public class BookingAdd {
 		JLabel lblNewLabel_2 = new JLabel("Price($):");
 		lblNewLabel_2.setBounds(140, 125, 86, 14);
 		bookingadd.getContentPane().add(lblNewLabel_2);
+		
+		JButton btnBackButton = new JButton("Back \u23CE");
+		btnBackButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				bookingadd.dispose();
+				
+				MainPage mainpage = new MainPage();
+				
+				MainPage.mainpage.setVisible(true);
+
+			}
+		});
+		btnBackButton.setBounds(260, 195, 89, 23);
+		bookingadd.getContentPane().add(btnBackButton);
+		
+		btnAdd = new JButton("Add");
+		btnAdd.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				String checkin = tbCheckIn.getText(); // gets the time of check in
+				
+				
+				
+			}
+		});
+		btnAdd.setBounds(17, 195, 89, 23);
+		bookingadd.getContentPane().add(btnAdd);
 	}
 }
