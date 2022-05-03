@@ -1,4 +1,4 @@
-package bubble.booking.com;
+package ui;
 
 import java.awt.EventQueue;
 

@@ -1,6 +1,8 @@
-package bubble.toolkit.com;
+package toolkit;
 
 import java.text.SimpleDateFormat;
+import java.time.format.DateTimeFormatter;
+import java.time.format.ResolverStyle;
 import java.util.Calendar;
 
 public class Clock{
@@ -28,7 +30,8 @@ public class Clock{
 		
 		Clock.time = time;
 		
-		
+		DateTimeFormatter strictTimeFormatter = DateTimeFormatter.ofPattern("HH:mm:ss z")
+		            .withResolverStyle(ResolverStyle.STRICT);                                 //stricly validates that the time is in the correct format
 		
 	}	
 

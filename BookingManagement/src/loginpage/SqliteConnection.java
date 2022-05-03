@@ -1,4 +1,4 @@
-package bubble.loginpage.com;
+package loginpage;
 
 import java.sql.Connection;
 import java.sql.DriverManager;

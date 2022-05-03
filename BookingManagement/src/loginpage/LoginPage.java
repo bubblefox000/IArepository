@@ -1,4 +1,4 @@
-package bubble.loginpage.com;
+package loginpage;
 
 
 import java.awt.EventQueue;
@@ -15,7 +15,7 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.text.AbstractDocument.Content;
 
-import bubble.booking.com.MainPage;
+import ui.MainPage;
 
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;

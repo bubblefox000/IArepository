@@ -1,4 +1,4 @@
-package bubble.booking.com;
+package ui;
 
 import java.awt.EventQueue;
 
@@ -101,7 +101,13 @@ public class BookingAdd {
 				
 				String checkin = tbCheckIn.getText(); // gets the time of check in
 				
-				
+				try {
+					
+					//checkTime(time);
+					
+				} catch (Exception e2) {
+					
+				}
 				
 			}
 		});
