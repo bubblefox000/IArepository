@@ -15,7 +15,7 @@ public class SqliteConnection {
     	try {
     		Class.forName("org.sqlite.JDBC");
     		Connection conn = DriverManager.getConnection("jdbc:sqlite:C:\\Users\\alex\\OneDrive\\Desktop\\Sqlitedb\\Login.db");
-    		JOptionPane.showMessageDialog(null, "Connection successful");
+    		//JOptionPane.showMessageDialog(null, "Connection successful");
     		return conn;
 			
 		} catch (SQLException e) {

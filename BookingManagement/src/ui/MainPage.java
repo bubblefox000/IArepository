@@ -4,14 +4,26 @@ import java.awt.BorderLayout;
 import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.AbstractButton;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.JTableHeader;
 
 
 public class MainPage {
 
 	public static JFrame mainpage;     //must be public for access from LoginPage
+	private JTable table;
+	private JTable table_1;
+	
+	public static void tableData() {
+		
+		BookingAdd a = new BookingAdd();
+		
+	}
 
 	/**
 	 * Launch the application.
@@ -63,6 +75,34 @@ public class MainPage {
 		JButton btnNewButton_1 = new JButton("delete reservation");
 		btnNewButton_1.setBounds(237, 227, 187, 23);
 		mainpage.getContentPane().add(btnNewButton_1);
+		
+		table_1 = new JTable();
+		table_1.setModel(new DefaultTableModel(
+			new Object[][] {
+				{null, null, null},
+			},
+			new String[] {
+				"Check In time", "Check out time", "Price"
+			}
+		));
+		table_1.getColumnModel().getColumn(1).setPreferredWidth(89);
+		table_1.setBounds(36, 187, 351, -162);
+		mainpage.getContentPane().add(table_1);
+		
+		BookingAdd b = new BookingAdd();
+		//String[] data = b.data;
+		
+		DefaultTableModel model = (DefaultTableModel)table_1.getModel();
+		//model.addRow(data);
+		
+		
+		
+		
+	
+
+		
+		
+		
 		
 	
 	}

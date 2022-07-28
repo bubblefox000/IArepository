@@ -5,6 +5,7 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JTextField;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -13,9 +14,27 @@ public class BookingAdd {
 
 	public static JFrame bookingadd;
 	private JTextField tbCheckIn;
-	private JTextField textField_1;
-	private JTextField textField_2;
+	private JTextField tbCheckOut;
+	private JTextField tbPrice;
 	private JButton btnAdd;
+	
+	//function to store input data in array
+	public static void data(String CheckIn, String CheckOut, String Price) {
+		
+		String data[] = {CheckIn, CheckOut, Price};
+	}
+	
+	// function to go back to mainpage
+	public static void back() {
+		
+		bookingadd.dispose();
+		
+		MainPage mainpage = new MainPage();
+		
+		MainPage.mainpage.setVisible(true);
+
+		
+	}
 
 	/**
 	 * Launch the application.
@@ -48,6 +67,8 @@ public class BookingAdd {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
+		
+		
 		bookingadd = new JFrame();
 		bookingadd.setBounds(100, 100, 450, 300);
 		bookingadd.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -66,15 +87,15 @@ public class BookingAdd {
 		lblNewLabel_1.setBounds(260, 65, 135, 14);
 		bookingadd.getContentPane().add(lblNewLabel_1);
 		
-		textField_1 = new JTextField();
-		textField_1.setBounds(260, 90, 86, 20);
-		bookingadd.getContentPane().add(textField_1);
-		textField_1.setColumns(10);
+		tbCheckOut = new JTextField();
+		tbCheckOut.setBounds(260, 90, 86, 20);
+		bookingadd.getContentPane().add(tbCheckOut);
+		tbCheckOut.setColumns(10);
 		
-		textField_2 = new JTextField();
-		textField_2.setBounds(140, 150, 86, 20);
-		bookingadd.getContentPane().add(textField_2);
-		textField_2.setColumns(10);
+		tbPrice = new JTextField();
+		tbPrice.setBounds(140, 150, 86, 20);
+		bookingadd.getContentPane().add(tbPrice);
+		tbPrice.setColumns(10);
 		
 		JLabel lblNewLabel_2 = new JLabel("Price($):");
 		lblNewLabel_2.setBounds(140, 125, 86, 14);
@@ -84,11 +105,7 @@ public class BookingAdd {
 		btnBackButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
-				bookingadd.dispose();
-				
-				MainPage mainpage = new MainPage();
-				
-				MainPage.mainpage.setVisible(true);
+				back();
 
 			}
 		});
@@ -99,15 +116,24 @@ public class BookingAdd {
 		btnAdd.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
-				String checkin = tbCheckIn.getText(); // gets the time of check in
-				
-				try {
+				if(tbCheckIn.getText().equals("")||tbCheckOut.getText().equals("")||tbPrice.getText().equals("")) {  //Checks if any of the user inputs are empty
 					
-					//checkTime(time);
-					
-				} catch (Exception e2) {
-					
+					JOptionPane.showMessageDialog(btnAdd, "Please input all required data");
 				}
+				else {
+					
+					//stores all user input in String array
+					data(tbCheckIn.getText(), tbCheckOut.getText(), tbPrice.getText());
+					
+					JOptionPane.showMessageDialog(btnAdd, "Record added");
+					
+					back();
+					
+				
+				}
+				
+						
+				
 				
 			}
 		});
