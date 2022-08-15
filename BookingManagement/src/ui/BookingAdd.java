@@ -4,6 +4,7 @@ import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JTextField;
+import javax.swing.SwingUtilities;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JButton;
@@ -17,11 +18,17 @@ public class BookingAdd {
 	private JTextField tbCheckOut;
 	private JTextField tbPrice;
 	private JButton btnAdd;
+	public static String[] pullData; // pulls data from data[]
+	public static boolean Record; // establishes if there is a record
+	public static String cmd; // fetches action command 
+	public static int count; // makes sure there is only one table of one input
 	
 	//function to store input data in array
-	public static void data(String CheckIn, String CheckOut, String Price) {
+	public static String[] data(String CheckIn, String CheckOut, String Price) {
 		
-		String data[] = {CheckIn, CheckOut, Price};
+		String[] infor = {CheckIn, CheckOut, Price};
+		
+		return infor;
 	}
 	
 	// function to go back to mainpage
@@ -31,8 +38,12 @@ public class BookingAdd {
 		
 		MainPage mainpage = new MainPage();
 		
+		SwingUtilities.updateComponentTreeUI(MainPage.mainpage);
+		
 		MainPage.mainpage.setVisible(true);
-
+		
+		
+		
 		
 	}
 
@@ -116,18 +127,33 @@ public class BookingAdd {
 		btnAdd.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
+				
 				if(tbCheckIn.getText().equals("")||tbCheckOut.getText().equals("")||tbPrice.getText().equals("")) {  //Checks if any of the user inputs are empty
 					
 					JOptionPane.showMessageDialog(btnAdd, "Please input all required data");
+					
+					Record = false;
 				}
 				else {
 					
 					//stores all user input in String array
-					data(tbCheckIn.getText(), tbCheckOut.getText(), tbPrice.getText());
+					pullData = data(tbCheckIn.getText(), tbCheckOut.getText(), tbPrice.getText());
+					
+					//System.out.println(pullData[1]);
 					
 					JOptionPane.showMessageDialog(btnAdd, "Record added");
 					
+					Record = true;
+					
+					cmd = e.getActionCommand();
+					
+					count = 0;
+										
 					back();
+									
+					
+					
+					
 					
 				
 				}

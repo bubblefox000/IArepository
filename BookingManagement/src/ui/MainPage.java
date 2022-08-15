@@ -11,19 +11,37 @@ import java.awt.event.ActionEvent;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
+import java.awt.Color;
+import javax.swing.JScrollPane;
 
 
 public class MainPage {
 
 	public static JFrame mainpage;     //must be public for access from LoginPage
-	private JTable table;
 	private JTable table_1;
+	private JScrollPane scrollPane;
+	DefaultTableModel model;
 	
-	public static void tableData() {
+	//Function to add row in table if user input is correct
+	public static void tableData(DefaultTableModel LocalModel, Object[] LocalRow) {
 		
 		BookingAdd a = new BookingAdd();
+				
+		if (a.Record == true && a.cmd == "Add" && a.count == 0 ) {
+		 
+		 
+			
+			//System.out.println(a.pullData[1]);
+			LocalModel.addRow(new Object[]{a.pullData[0], a.pullData[1], a.pullData[2]});
+		    
+			a.count = 1;
+				
+		}
 		
 	}
+		
+		
+	
 
 	/**
 	 * Launch the application.
@@ -55,7 +73,8 @@ public class MainPage {
 	 */
 	private void initialize() {
 		mainpage = new JFrame();
-		mainpage.setBounds(100, 100, 450, 300);
+		mainpage.getContentPane().setBackground(Color.DARK_GRAY);
+		mainpage.setBounds(100, 100, 2013, 1176);
 		mainpage.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		mainpage.getContentPane().setLayout(null);
 		
@@ -69,31 +88,43 @@ public class MainPage {
 				BookingAdd.bookingadd.setVisible(true);
 			}
 		});
-		btnNewReservation.setBounds(10, 227, 187, 23);
+		btnNewReservation.setBounds(29, 1103, 187, 23);
 		mainpage.getContentPane().add(btnNewReservation);
 		
-		JButton btnNewButton_1 = new JButton("delete reservation");
-		btnNewButton_1.setBounds(237, 227, 187, 23);
-		mainpage.getContentPane().add(btnNewButton_1);
+		//table_1.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+		
+		JButton btnDelete = new JButton("delete reservation");
+		btnDelete.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		btnDelete.setBounds(1775, 1103, 187, 23);
+		mainpage.getContentPane().add(btnDelete);
+		
+		
+		scrollPane = new JScrollPane();
+		scrollPane.setBounds(29, 90, 1933, 314);
+		mainpage.getContentPane().add(scrollPane);
 		
 		table_1 = new JTable();
-		table_1.setModel(new DefaultTableModel(
-			new Object[][] {
-				{null, null, null},
-			},
-			new String[] {
-				"Check In time", "Check out time", "Price"
+		model = new DefaultTableModel();
+		//TODO: my code under
+		Object[] column = {"CheckIn", "CheckOut", "Price"};
+		Object[] row = new Object[0];
+		model.setColumnIdentifiers(column);
+		table_1.setModel(model);
+		scrollPane.setViewportView(table_1);
+		
+		JButton btnTest = new JButton("Refresh");
+		btnTest.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				tableData(model, row);
 			}
-		));
-		table_1.getColumnModel().getColumn(1).setPreferredWidth(89);
-		table_1.setBounds(36, 187, 351, -162);
-		mainpage.getContentPane().add(table_1);
+		});
+		btnTest.setBounds(29, 425, 89, 23);
+		mainpage.getContentPane().add(btnTest);
 		
-		BookingAdd b = new BookingAdd();
-		//String[] data = b.data;
-		
-		DefaultTableModel model = (DefaultTableModel)table_1.getModel();
-		//model.addRow(data);
 		
 		
 		
