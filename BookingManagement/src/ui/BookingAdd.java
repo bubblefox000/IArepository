@@ -5,10 +5,15 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
+
+import exceptions.TimeFormatException;
+
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.time.format.DateTimeFormatter;
+import java.time.format.ResolverStyle;
 import java.awt.event.ActionEvent;
 
 public class BookingAdd {
@@ -31,6 +36,8 @@ public class BookingAdd {
 		return infor;
 	}
 	
+	
+	
 	// function to go back to mainpage
 	public static void back() {
 		
@@ -46,6 +53,8 @@ public class BookingAdd {
 		
 		
 	}
+	
+	
 
 	/**
 	 * Launch the application.
@@ -125,8 +134,19 @@ public class BookingAdd {
 		
 		btnAdd = new JButton("Add");
 		btnAdd.addActionListener(new ActionListener() {
+			
+			
+		
+			
+			
 			public void actionPerformed(ActionEvent e) {
 				
+				boolean CheckInCheck = TimeFormatException.isValid(tbCheckIn.getText());
+				boolean CheckOutCheck = TimeFormatException.isValid(tbCheckOut.getText());
+				
+
+				
+		
 				
 				if(tbCheckIn.getText().equals("")||tbCheckOut.getText().equals("")||tbPrice.getText().equals("")) {  //Checks if any of the user inputs are empty
 					
@@ -134,6 +154,14 @@ public class BookingAdd {
 					
 					Record = false;
 				}
+				
+				else if(CheckInCheck == false && CheckOutCheck == false ) {
+					
+					JOptionPane.showMessageDialog(btnAdd, "Please use correct date format");
+					
+					Record = false;
+				}
+                
 				else {
 					
 					//stores all user input in String array
@@ -141,7 +169,6 @@ public class BookingAdd {
 					
 					//System.out.println(pullData[1]);
 					
-					JOptionPane.showMessageDialog(btnAdd, "Record added");
 					
 					Record = true;
 					
@@ -165,5 +192,9 @@ public class BookingAdd {
 		});
 		btnAdd.setBounds(17, 195, 89, 23);
 		bookingadd.getContentPane().add(btnAdd);
+		
+		JLabel lblNewLabel_3 = new JLabel("Time should be in hour, month day, year");
+		lblNewLabel_3.setBounds(36, 29, 347, 14);
+		bookingadd.getContentPane().add(lblNewLabel_3);
 	}
 }

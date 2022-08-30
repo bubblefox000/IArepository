@@ -6,7 +6,7 @@ import java.sql.SQLException;
 
 import javax.swing.JOptionPane;
 
-public class SqliteConnection {
+public class SqliteLoginConnection {
     /**
      * Connect to a sample database
      */

@@ -30,7 +30,7 @@ public class Clock{
 		
 		Clock.time = time;
 		
-		DateTimeFormatter strictTimeFormatter = DateTimeFormatter.ofPattern("HH:mm:ss z")
+		DateTimeFormatter strictTimeFormatter = DateTimeFormatter.ofPattern("k, MMM d, Y")
 		            .withResolverStyle(ResolverStyle.STRICT);                                 //stricly validates that the time is in the correct format
 		
 	}	

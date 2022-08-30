@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.AbstractButton;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
@@ -90,17 +91,7 @@ public class MainPage {
 		});
 		btnNewReservation.setBounds(29, 1103, 187, 23);
 		mainpage.getContentPane().add(btnNewReservation);
-		
-		//table_1.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
-		
-		JButton btnDelete = new JButton("delete reservation");
-		btnDelete.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			}
-		});
-		btnDelete.setBounds(1775, 1103, 187, 23);
-		mainpage.getContentPane().add(btnDelete);
-		
+				
 		
 		scrollPane = new JScrollPane();
 		scrollPane.setBounds(29, 90, 1933, 314);
@@ -114,6 +105,22 @@ public class MainPage {
 		model.setColumnIdentifiers(column);
 		table_1.setModel(model);
 		scrollPane.setViewportView(table_1);
+		table_1.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+		
+		JButton btnDelete = new JButton("delete reservation");
+		btnDelete.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				 if(table_1.getSelectedRow() != -1) {
+		               // remove selected row from the model
+		               model.removeRow(table_1.getSelectedRow());
+		               //JOptionPane.showMessageDialog(null, "Selected row deleted successfully");
+		            }
+		         }
+			}
+		);
+		btnDelete.setBounds(1775, 1103, 187, 23);
+		mainpage.getContentPane().add(btnDelete);
 		
 		JButton btnTest = new JButton("Refresh");
 		btnTest.addActionListener(new ActionListener() {

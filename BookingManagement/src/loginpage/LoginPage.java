@@ -4,7 +4,6 @@ package loginpage;
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.Window;
 import java.sql.Connection;
 
 import javax.swing.JButton;
@@ -13,19 +12,10 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
-import javax.swing.text.AbstractDocument.Content;
-
 import ui.MainPage;
 
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
-import java.sql.Connection;
 import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.function.ToIntBiFunction;
-import java.awt.event.ContainerAdapter;
-import java.awt.event.ContainerEvent;
 
 public class LoginPage {
 	
@@ -63,7 +53,7 @@ public class LoginPage {
 	 */
 	public LoginPage() {
 		initialize();
-		connection = SqliteConnection.dbConnector();
+		connection = SqliteLoginConnection.dbConnector();
 	
 	}
 
@@ -128,12 +118,8 @@ public class LoginPage {
 				
 			}
 		});
-		btnLogin.setBounds(75, 195, 89, 23);
+		btnLogin.setBounds(155, 196, 88, 23);
 		frame.getContentPane().add(btnLogin);
-		
-		JButton btnRegister = new JButton("Register");
-		btnRegister.setBounds(217, 195, 89, 23);
-		frame.getContentPane().add(btnRegister);
 		
 		
 		
