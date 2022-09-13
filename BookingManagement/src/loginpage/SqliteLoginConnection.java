@@ -10,6 +10,8 @@ public class SqliteLoginConnection {
     /**
      * Connect to a sample database
      */
+	String filePath = "Login.db";
+	String workingDirectory = System.getProperty("user.dir");
 	Connection conn = null;
     public static Connection dbConnector() {
     	try {

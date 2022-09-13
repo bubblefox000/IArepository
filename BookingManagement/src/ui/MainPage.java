@@ -8,10 +8,18 @@ import javax.swing.JOptionPane;
 import javax.swing.AbstractButton;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.Iterator;
 import java.awt.event.ActionEvent;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
+
+import ui.SqliteMainPageConnection;
+
 import java.awt.Color;
 import javax.swing.JScrollPane;
 
@@ -40,6 +48,38 @@ public class MainPage {
 		}
 		
 	}
+	
+	public void CCP(String CheckIn, String CheckOut, String Price) throws SQLException  {
+		//this method is to collect and update SQL statement 
+		String query = null;
+		Statement St = null;					
+		try {
+			St = connection.createStatement();
+			query = "update tbltest set CheckIn = '" + CheckIn + "',CheckOut = '" + CheckOut + "' where price = '" + Price + "'";
+		} catch (SQLException e) {
+			JOptionPane.showMessageDialog(mainpage, e);
+		}
+		
+		finally {
+			connection.close();
+			St.close();
+		}
+		
+	//end of method
+	}
+	
+	public void tablePropertyChange(java.beans.PropertyChangeEvent evt) {
+		
+		try {
+			int row = table_1.getSelectedRow();
+			int column = table_1.getSelectedColumn();
+			int c = table_1.getColumnCount();
+			
+			
+		} catch (Exception e) {
+			
+		}
+	}
 		
 		
 	
@@ -59,6 +99,8 @@ public class MainPage {
 			}
 		});
 	}
+	
+	Connection connection = null;
 
 	/**
 	 * Create the application.
@@ -66,6 +108,7 @@ public class MainPage {
 	public MainPage() {
 		initialize();
 		
+		connection = SqliteMainPageConnection.dbConnector();	
 		
 	}
 
@@ -119,18 +162,68 @@ public class MainPage {
 		         }
 			}
 		);
+		
 		btnDelete.setBounds(1775, 1103, 187, 23);
 		mainpage.getContentPane().add(btnDelete);
 		
-		JButton btnTest = new JButton("Refresh");
-		btnTest.addActionListener(new ActionListener() {
+		JButton btnRefresh = new JButton("Refresh");
+		btnRefresh.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
 				tableData(model, row);
 			}
 		});
-		btnTest.setBounds(29, 425, 89, 23);
-		mainpage.getContentPane().add(btnTest);
+		btnRefresh.setBounds(29, 425, 89, 23);
+		mainpage.getContentPane().add(btnRefresh);
+		
+		
+		JButton btnSave = new JButton("Save");
+		btnSave.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				
+				DefaultTableModel dt = (DefaultTableModel) table_1.getModel();
+				try {
+				
+					Statement St;					
+					St = connection.createStatement();
+					
+					//Execute a query
+					String sql = "UPDATE mainpage SET CheckIn='" + dt.getValueAt(0, 0)+ "',CheckOut='"+ dt.getValueAt(0, 1) + "' WHERE Price=" + dt.getValueAt(0, 2);
+					St.executeUpdate(sql);
+					
+					System.out.println("Putting into database...");
+					
+					
+			
+				/*	
+					for(int x=0;x<dt.getRowCount();x++) {
+									
+						St.executeUpdate("UPDATE mainpage SET CheckIn='" + dt.getValueAt(x, 0)+ "',CheckOut='"+ dt.getValueAt(x, 1) + "' WHERE Price=" + dt.getValueAt(x, 2));
+					}
+					
+					
+					JOptionPane.showMessageDialog(btnSave, "Record Saved");
+					St.close();
+					
+					*/
+					
+					
+				} catch (Exception e2) {
+					
+					JOptionPane.showMessageDialog(btnSave, e2.getMessage());
+	
+					
+				}
+				
+				
+			
+				
+			}
+		});
+		
+		btnSave.setBounds(1775, 473, 89, 23);
+		mainpage.getContentPane().add(btnSave);
 		
 		
 		

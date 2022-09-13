@@ -7,11 +7,13 @@ import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
 
 import exceptions.TimeFormatException;
+import loginpage.SqliteLoginConnection;
 
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.sql.Connection;
 import java.time.format.DateTimeFormatter;
 import java.time.format.ResolverStyle;
 import java.awt.event.ActionEvent;
@@ -75,12 +77,15 @@ public class BookingAdd {
 			}
 		});
 	}
+	
+
 
 	/**
 	 * Create the application.
 	 */
 	public BookingAdd() {
 		initialize();
+		
 	}
 
 	/**
@@ -155,13 +160,13 @@ public class BookingAdd {
 					Record = false;
 				}
 				
-				else if(CheckInCheck == false && CheckOutCheck == false ) {
+			/*	else if(CheckInCheck == false && CheckOutCheck == false ) {
 					
 					JOptionPane.showMessageDialog(btnAdd, "Please use correct date format");
 					
 					Record = false;
 				}
-                
+                */
 				else {
 					
 					//stores all user input in String array
