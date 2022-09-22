@@ -5,15 +5,19 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
+import javax.swing.table.TableModel;
 
 import exceptions.TimeFormatException;
 import loginpage.SqliteLoginConnection;
+import net.proteanit.sql.DbUtils;
 
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.time.format.DateTimeFormatter;
 import java.time.format.ResolverStyle;
 import java.awt.event.ActionEvent;
@@ -29,6 +33,8 @@ public class BookingAdd {
 	public static boolean Record; // establishes if there is a record
 	public static String cmd; // fetches action command 
 	public static int count; // makes sure there is only one table of one input
+	Connection connection = null;
+	private JTextField tbRowId;
 	
 	//function to store input data in array
 	public static String[] data(String CheckIn, String CheckOut, String Price) {
@@ -85,6 +91,7 @@ public class BookingAdd {
 	 */
 	public BookingAdd() {
 		initialize();
+		connection = SqliteMainPageConnection.dbConnector();
 		
 	}
 
@@ -99,10 +106,10 @@ public class BookingAdd {
 		bookingadd.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		bookingadd.getContentPane().setLayout(null);
 		
-		tbCheckIn = new JTextField();
-		tbCheckIn.setBounds(20, 90, 86, 20);
-		bookingadd.getContentPane().add(tbCheckIn);
-		tbCheckIn.setColumns(10);
+		setTbCheckIn(new JTextField());
+		getTbCheckIn().setBounds(20, 90, 86, 20);
+		bookingadd.getContentPane().add(getTbCheckIn());
+		getTbCheckIn().setColumns(10);
 		
 		JLabel lblNewLabel = new JLabel("Time of check in:");
 		lblNewLabel.setBounds(20, 65, 124, 14);
@@ -118,12 +125,12 @@ public class BookingAdd {
 		tbCheckOut.setColumns(10);
 		
 		tbPrice = new JTextField();
-		tbPrice.setBounds(140, 150, 86, 20);
+		tbPrice.setBounds(140, 90, 86, 20);
 		bookingadd.getContentPane().add(tbPrice);
 		tbPrice.setColumns(10);
 		
 		JLabel lblNewLabel_2 = new JLabel("Price($):");
-		lblNewLabel_2.setBounds(140, 125, 86, 14);
+		lblNewLabel_2.setBounds(140, 65, 86, 14);
 		bookingadd.getContentPane().add(lblNewLabel_2);
 		
 		JButton btnBackButton = new JButton("Back \u23CE");
@@ -146,33 +153,63 @@ public class BookingAdd {
 			
 			public void actionPerformed(ActionEvent e) {
 				
-				boolean CheckInCheck = TimeFormatException.isValid(tbCheckIn.getText());
+				boolean CheckInCheck = TimeFormatException.isValid(getTbCheckIn().getText());
 				boolean CheckOutCheck = TimeFormatException.isValid(tbCheckOut.getText());
 				
 
 				
 		
 				
-				if(tbCheckIn.getText().equals("")||tbCheckOut.getText().equals("")||tbPrice.getText().equals("")) {  //Checks if any of the user inputs are empty
+				if(getTbCheckIn().getText().equals("")||tbCheckOut.getText().equals("")||tbPrice.getText().equals("")||tbRowId.getText().equals("")) {  //Checks if any of the user inputs are empty
 					
 					JOptionPane.showMessageDialog(btnAdd, "Please input all required data");
 					
 					Record = false;
 				}
 				
-			/*	else if(CheckInCheck == false && CheckOutCheck == false ) {
+				else if(CheckInCheck == false && CheckOutCheck == false ) {
 					
 					JOptionPane.showMessageDialog(btnAdd, "Please use correct date format");
 					
 					Record = false;
 				}
-                */
+                
 				else {
 					
 					//stores all user input in String array
-					pullData = data(tbCheckIn.getText(), tbCheckOut.getText(), tbPrice.getText());
+					pullData = data(getTbCheckIn().getText(), tbCheckOut.getText(), tbPrice.getText());
 					
-					//System.out.println(pullData[1]);
+					MainPage m = new MainPage();
+					//int RowCount = (int) m.table_1.getModel().getValueAt(m.table_1.getRowCount(), m.table_1.getColumnCount());
+					//RowCount = RowCount + 1;
+					//String RowCountString = Integer.toString(RowCount);
+					
+					System.out.println(m.table_1.getRowCount());
+									
+					
+					
+					try {
+						String query =  "insert into mainpage (Row,CheckIn,CheckOut,Price) values (?,?,?,?)";
+					    PreparedStatement pst = connection.prepareStatement(query); //TODO: remove pull data from BookingAdd class
+					    pst.setString(1, tbRowId.getText());
+					    pst.setString(2, getTbCheckIn().getText());
+					    pst.setString(3, tbCheckOut.getText());
+					    pst.setString(4, tbPrice.getText());
+					    
+					    pst.execute();
+					    
+						
+						JOptionPane.showMessageDialog(null, "Data Saved");
+						
+						pst.close();
+						connection.close();
+						
+					} catch (Exception e2) {
+						e2.printStackTrace();
+					}
+							
+					
+				
 					
 					
 					Record = true;
@@ -201,5 +238,26 @@ public class BookingAdd {
 		JLabel lblNewLabel_3 = new JLabel("Time should be in hour, month day, year");
 		lblNewLabel_3.setBounds(36, 29, 347, 14);
 		bookingadd.getContentPane().add(lblNewLabel_3);
+		
+		tbRowId = new JTextField();
+		tbRowId.setBounds(140, 150, 86, 20);
+		bookingadd.getContentPane().add(tbRowId);
+		tbRowId.setColumns(10);
+		
+		JLabel lblNewLabel_4 = new JLabel("Row Id:");
+		lblNewLabel_4.setBounds(84, 153, 46, 14);
+		bookingadd.getContentPane().add(lblNewLabel_4);
+	}
+
+
+
+	public JTextField getTbCheckIn() {
+		return tbCheckIn;
+	}
+
+
+
+	public void setTbCheckIn(JTextField tbCheckIn) {
+		this.tbCheckIn = tbCheckIn;
 	}
 }
