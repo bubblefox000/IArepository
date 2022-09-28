@@ -18,6 +18,7 @@ import java.awt.event.ActionListener;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.time.format.DateTimeFormatter;
 import java.time.format.ResolverStyle;
 import java.awt.event.ActionEvent;
@@ -204,9 +205,10 @@ public class BookingAdd {
 						pst.close();
 						connection.close();
 						
-					} catch (Exception e2) {
-						e2.printStackTrace();
+					} catch (SQLException e2) {
+						JOptionPane.showMessageDialog(null, "Please input a unique Row number!");
 					}
+					
 							
 					
 				

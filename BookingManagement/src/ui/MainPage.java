@@ -26,6 +26,8 @@ import java.awt.Color;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import java.awt.Font;
+import javax.swing.GroupLayout;
+import javax.swing.GroupLayout.Alignment;
 
 
 public class MainPage {
@@ -36,7 +38,7 @@ public class MainPage {
 	DefaultTableModel model = new DefaultTableModel();
 
 	Connection connection = null;
-	private JTextField tbRow;
+	private JTextField tbRowE;
 	private JTextField tbCheckInE;
 	private JTextField tbCheckOutE;
 	private JTextField tbPriceE;
@@ -79,9 +81,9 @@ public class MainPage {
 			
 			 
 			
-			connection.close();
-			pst.close();
-			rs.close();
+			//connection.close();
+			//pst.close();
+			//rs.close();
 			
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -161,7 +163,6 @@ public class MainPage {
 		mainpage.getContentPane().setBackground(new Color(0, 0, 102));
 		mainpage.setBounds(100, 100, 2013, 1176);
 		mainpage.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		mainpage.getContentPane().setLayout(null);
 		
 		JButton btnNewReservation = new JButton("Add new reservation");
 		btnNewReservation.addActionListener(new ActionListener() {
@@ -173,12 +174,8 @@ public class MainPage {
 				BookingAdd.bookingadd.setVisible(true);
 			}
 		});
-		btnNewReservation.setBounds(29, 1103, 187, 23);
-		mainpage.getContentPane().add(btnNewReservation);
 		
 		JScrollPane scrollPane_1 = new JScrollPane();
-		scrollPane_1.setBounds(29, 90, 1933, 314);
-		mainpage.getContentPane().add(scrollPane_1);
 				
 		
 		scrollPane = new JScrollPane();
@@ -194,23 +191,6 @@ public class MainPage {
 		Object[] row = new Object[0];
 		model.setColumnIdentifiers(column);
 		
-		JButton btnDelete = new JButton("delete reservation");
-		btnDelete.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				
-				 if(getTable_1().getSelectedRow() > 0) {
-		               // remove selected row from the model
-		               model.removeRow(getTable_1().getSelectedRow());
-		               //JOptionPane.showMessageDialog(null, "Selected row deleted successfully");
-		            }
-		         }
-			}
-			
-		);
-		
-		btnDelete.setBounds(1775, 1103, 187, 23);
-		mainpage.getContentPane().add(btnDelete);
-		
 		JButton btnRefresh = new JButton("Refresh");
 		btnRefresh.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -218,94 +198,187 @@ public class MainPage {
 				tableData(model, row);
 			}
 		});
-		btnRefresh.setBounds(29, 425, 89, 23);
-		mainpage.getContentPane().add(btnRefresh);
 		
-		JButton btnNewButton = new JButton("Save");
-		btnNewButton.addActionListener(new ActionListener() {
+		JButton btnSave = new JButton("Save");
+		btnSave.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				BookingAdd a = new BookingAdd();
 				try {
-					//String query =  "Update mainpage set CheckIn='"+ +"'   ";
-				   // PreparedStatement pst = connection.prepareStatement(query); //TODO: remove pull data from BookingAdd class
+					String query =  "Update mainpage set CheckIn='"+ tbCheckInE.getText()+"' ,CheckOut='" + tbCheckOutE.getText() +"' ,Price='" +tbPriceE.getText() + "'where Row = '"+tbRowE.getText()+"' ";
+				    PreparedStatement pst = connection.prepareStatement(query); //TODO: remove pull data from BookingAdd class
 				    
-				  //  pst.execute();
+				    pst.execute();
 				    
 					
 					JOptionPane.showMessageDialog(null, "Data Updated");
 					
 				//	pst.close();
-					connection.close();
+				//	connection.close();
 					
 				} catch (Exception e2) {
 					e2.printStackTrace();
 				}
 			}
 		});
-		btnNewButton.setBounds(1118, 538, 89, 23);
-		mainpage.getContentPane().add(btnNewButton);
 		
-		tbRow = new JTextField();
-		tbRow.setBounds(336, 539, 86, 20);
-		mainpage.getContentPane().add(tbRow);
-		tbRow.setColumns(10);
+		tbRowE = new JTextField();
+		tbRowE.setColumns(10);
 		
 		JLabel lblEditData = new JLabel("Put data to edit table in text boxes");
-		lblEditData.setBounds(29, 542, 168, 14);
-		mainpage.getContentPane().add(lblEditData);
 		lblEditData.setForeground(new Color(255, 255, 0));
 		
 		tbCheckInE = new JTextField();
-		tbCheckInE.setBounds(536, 539, 86, 20);
-		mainpage.getContentPane().add(tbCheckInE);
 		tbCheckInE.setColumns(10);
 		
 		JLabel lblNewLabel = new JLabel("Row number:");
 		lblNewLabel.setForeground(new Color(255, 255, 0));
-		lblNewLabel.setBounds(236, 542, 64, 14);
-		mainpage.getContentPane().add(lblNewLabel);
 		
 		JLabel lblNewLabel_1 = new JLabel("Required:");
 		lblNewLabel_1.setForeground(new Color(255, 255, 0));
-		lblNewLabel_1.setBounds(40, 865, 53, 14);
-		mainpage.getContentPane().add(lblNewLabel_1);
 		
 		JLabel lblNewLabel_2 = new JLabel("*");
 		lblNewLabel_2.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		lblNewLabel_2.setForeground(new Color(255, 0, 0));
-		lblNewLabel_2.setBounds(91, 865, 46, 14);
-		mainpage.getContentPane().add(lblNewLabel_2);
 		
 		JLabel lblNewLabel_2_1 = new JLabel("*");
 		lblNewLabel_2_1.setForeground(Color.RED);
 		lblNewLabel_2_1.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		lblNewLabel_2_1.setBounds(310, 538, 16, 14);
-		mainpage.getContentPane().add(lblNewLabel_2_1);
 		
 		JLabel lblNewLabel_3 = new JLabel("CheckIn time:");
 		lblNewLabel_3.setForeground(new Color(255, 255, 0));
-		lblNewLabel_3.setBounds(452, 542, 74, 14);
-		mainpage.getContentPane().add(lblNewLabel_3);
 		
 		JLabel lblNewLabel_4 = new JLabel("CheckOut time:");
 		lblNewLabel_4.setForeground(new Color(255, 255, 0));
-		lblNewLabel_4.setBounds(668, 542, 89, 14);
-		mainpage.getContentPane().add(lblNewLabel_4);
 		
 		tbCheckOutE = new JTextField();
-		tbCheckOutE.setBounds(750, 539, 86, 20);
-		mainpage.getContentPane().add(tbCheckOutE);
 		tbCheckOutE.setColumns(10);
 		
 		JLabel lblNewLabel_5 = new JLabel("Price:");
 		lblNewLabel_5.setForeground(new Color(255, 255, 0));
-		lblNewLabel_5.setBounds(870, 542, 46, 14);
-		mainpage.getContentPane().add(lblNewLabel_5);
 		
 		tbPriceE = new JTextField();
-		tbPriceE.setBounds(926, 539, 86, 20);
-		mainpage.getContentPane().add(tbPriceE);
 		tbPriceE.setColumns(10);
+		
+		JButton btnDelete = new JButton("Delete ");
+		btnDelete.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				BookingAdd a = new BookingAdd();
+				try {
+					String query =  "delete from mainpage where Row='"+tbRowE.getText()+"'";
+				    PreparedStatement pst = connection.prepareStatement(query); //TODO: remove pull data from BookingAdd class
+				    
+				    pst.execute();
+				    
+					
+					JOptionPane.showMessageDialog(null, "Data Updated");
+					
+				//	pst.close();
+				//	connection.close();
+					
+				} catch (Exception e2) {
+					e2.printStackTrace();
+				}
+			}
+				
+				
+			
+		});
+		GroupLayout groupLayout = new GroupLayout(mainpage.getContentPane());
+		groupLayout.setHorizontalGroup(
+			groupLayout.createParallelGroup(Alignment.LEADING)
+				.addGroup(groupLayout.createSequentialGroup()
+					.addGap(29)
+					.addComponent(scrollPane_1, GroupLayout.PREFERRED_SIZE, 1933, GroupLayout.PREFERRED_SIZE))
+				.addGroup(groupLayout.createSequentialGroup()
+					.addGap(29)
+					.addComponent(btnRefresh, GroupLayout.PREFERRED_SIZE, 89, GroupLayout.PREFERRED_SIZE))
+				.addGroup(groupLayout.createSequentialGroup()
+					.addGap(29)
+					.addComponent(lblEditData)
+					.addGap(39)
+					.addComponent(lblNewLabel)
+					.addGap(10)
+					.addComponent(lblNewLabel_2_1, GroupLayout.PREFERRED_SIZE, 16, GroupLayout.PREFERRED_SIZE)
+					.addGap(10)
+					.addComponent(tbRowE, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+					.addGap(30)
+					.addComponent(lblNewLabel_3, GroupLayout.PREFERRED_SIZE, 74, GroupLayout.PREFERRED_SIZE)
+					.addGap(10)
+					.addComponent(tbCheckInE, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+					.addGap(46)
+					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+						.addComponent(lblNewLabel_4, GroupLayout.PREFERRED_SIZE, 89, GroupLayout.PREFERRED_SIZE)
+						.addGroup(groupLayout.createSequentialGroup()
+							.addGap(82)
+							.addComponent(tbCheckOutE, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
+					.addGap(34)
+					.addComponent(lblNewLabel_5, GroupLayout.PREFERRED_SIZE, 46, GroupLayout.PREFERRED_SIZE)
+					.addGap(10)
+					.addComponent(tbPriceE, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+					.addGap(106)
+					.addComponent(btnSave, GroupLayout.PREFERRED_SIZE, 89, GroupLayout.PREFERRED_SIZE)
+					.addGap(23)
+					.addComponent(btnDelete, GroupLayout.PREFERRED_SIZE, 89, GroupLayout.PREFERRED_SIZE))
+				.addGroup(groupLayout.createSequentialGroup()
+					.addGap(40)
+					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+						.addGroup(groupLayout.createSequentialGroup()
+							.addGap(51)
+							.addComponent(lblNewLabel_2, GroupLayout.PREFERRED_SIZE, 46, GroupLayout.PREFERRED_SIZE))
+						.addComponent(lblNewLabel_1, GroupLayout.PREFERRED_SIZE, 53, GroupLayout.PREFERRED_SIZE)))
+				.addGroup(groupLayout.createSequentialGroup()
+					.addGap(29)
+					.addComponent(btnNewReservation, GroupLayout.PREFERRED_SIZE, 187, GroupLayout.PREFERRED_SIZE))
+		);
+		groupLayout.setVerticalGroup(
+			groupLayout.createParallelGroup(Alignment.LEADING)
+				.addGroup(groupLayout.createSequentialGroup()
+					.addGap(90)
+					.addComponent(scrollPane_1, GroupLayout.PREFERRED_SIZE, 314, GroupLayout.PREFERRED_SIZE)
+					.addGap(21)
+					.addComponent(btnRefresh)
+					.addGap(90)
+					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+						.addGroup(groupLayout.createSequentialGroup()
+							.addGap(4)
+							.addComponent(lblEditData))
+						.addGroup(groupLayout.createSequentialGroup()
+							.addGap(4)
+							.addComponent(lblNewLabel))
+						.addComponent(lblNewLabel_2_1, GroupLayout.PREFERRED_SIZE, 14, GroupLayout.PREFERRED_SIZE)
+						.addGroup(groupLayout.createSequentialGroup()
+							.addGap(1)
+							.addComponent(tbRowE, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+						.addGroup(groupLayout.createSequentialGroup()
+							.addGap(4)
+							.addComponent(lblNewLabel_3))
+						.addGroup(groupLayout.createSequentialGroup()
+							.addGap(1)
+							.addComponent(tbCheckInE, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+						.addGroup(groupLayout.createSequentialGroup()
+							.addGap(1)
+							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+								.addGroup(groupLayout.createSequentialGroup()
+									.addGap(3)
+									.addComponent(lblNewLabel_4))
+								.addComponent(tbCheckOutE, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
+						.addGroup(groupLayout.createSequentialGroup()
+							.addGap(4)
+							.addComponent(lblNewLabel_5))
+						.addGroup(groupLayout.createSequentialGroup()
+							.addGap(1)
+							.addComponent(tbPriceE, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+						.addComponent(btnSave)
+						.addComponent(btnDelete))
+					.addGap(304)
+					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+						.addComponent(lblNewLabel_2, GroupLayout.PREFERRED_SIZE, 14, GroupLayout.PREFERRED_SIZE)
+						.addComponent(lblNewLabel_1))
+					.addGap(224)
+					.addComponent(btnNewReservation))
+		);
+		mainpage.getContentPane().setLayout(groupLayout);
 		
 		
 		
