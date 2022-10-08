@@ -177,15 +177,7 @@ public class BookingAdd {
                 
 				else {
 					
-					//stores all user input in String array
-					pullData = data(getTbCheckIn().getText(), tbCheckOut.getText(), tbPrice.getText());
 					
-					MainPage m = new MainPage();
-					//int RowCount = (int) m.table_1.getModel().getValueAt(m.table_1.getRowCount(), m.table_1.getColumnCount());
-					//RowCount = RowCount + 1;
-					//String RowCountString = Integer.toString(RowCount);
-					
-					System.out.println(m.table_1.getRowCount());
 									
 					
 					
