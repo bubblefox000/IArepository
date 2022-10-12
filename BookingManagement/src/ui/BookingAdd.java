@@ -212,12 +212,11 @@ public class BookingAdd {
 					}
 					
 					try {
-						String query1 =  "insert into pastbookings (Row,CheckIn,CheckOut,Price) values (?,?,?,?)";
+						String query1 =  "insert into pastbookings (CheckIn,CheckOut,Price) values (?,?,?)";
 					    PreparedStatement pst1 = connection2.prepareStatement(query1); //TODO: remove pull data from BookingAdd class
-					    pst1.setString(1, tbRowId.getText());
-					    pst1.setString(2, getTbCheckIn().getText());
-					    pst1.setString(3, tbCheckOut.getText());
-					    pst1.setString(4, tbPrice.getText());
+					    pst1.setString(1, getTbCheckIn().getText());
+					    pst1.setString(2, tbCheckOut.getText());
+					    pst1.setString(3, tbPrice.getText());
 					    
 					    pst1.execute();					    
 						

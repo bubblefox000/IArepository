@@ -21,7 +21,8 @@ public class SqliteLoginConnection {
     public static Connection dbConnector() {
     	try {
     		Class.forName("org.sqlite.JDBC");
-    		Connection conn = DriverManager.getConnection("jdbc:sqlite:" +fileString); //jdbc:sqlite:C:\\Users\\alex\\OneDrive\\Desktop\\Sqlitedb\\Login.db"
+    		Connection conn = DriverManager.getConnection("jdbc:sqlite:" +fileString); //C:\Users\alex\git\IArepository\IArepository\BookingManagement
+
     		//JOptionPane.showMessageDialog(null, "Connection successful");
     		return conn;
 			
@@ -35,6 +36,7 @@ public class SqliteLoginConnection {
 			return null;
 		}
     }
-       
+    
+   
 
 }
