@@ -1,27 +1,20 @@
 package ui;
 
-import java.awt.BorderLayout;
 import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-import javax.swing.AbstractButton;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.Iterator;
 import java.awt.event.ActionEvent;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.JTableHeader;
-
+import connections.SqliteMainPageConnection;
 import exceptions.TimeFormatException;
 import net.proteanit.sql.DbUtils;
-import ui.SqliteMainPageConnection;
 
 import java.awt.Color;
 import javax.swing.JScrollPane;
@@ -53,11 +46,8 @@ public class MainPage {
 	}
 	
 	//Function to add row in table if user input is correct
-	public void tableData(DefaultTableModel LocalModel, Object[] LocalRow) {
+	private void tableData(DefaultTableModel LocalModel, Object[] LocalRow) {
 		
-		
-			
-	//	if (BookingAdd.Record == true && BookingAdd.cmd == "Add" && BookingAdd.count == 0 ) {
 		
 		
 		 
@@ -65,19 +55,13 @@ public class MainPage {
 		try {
 			
 			String query =  "select * from mainpage";
-			PreparedStatement pst = connection.prepareStatement(query); //TODO: remove pull data from BookingAdd class
+			PreparedStatement pst = connection.prepareStatement(query); 
 			ResultSet rs = pst.executeQuery();	
 			getTable_1().setModel(DbUtils.resultSetToTableModel(rs));
 			
 			for (int i = 0; i <= getTable_1().getRowCount(); i++) {
 				
-				/*
-			    table_1.setValueAt(i+1, i, 0);
-				String query2 = "Update mainpage set Row ='"+ table_1.getValueAt(i-1, 0) +"'";
-				PreparedStatement pst2 = connection.prepareStatement(query2);
-				pst2.execute();
-	
-				*/
+				
 			}
 			
 			
@@ -96,27 +80,7 @@ public class MainPage {
 	//}
 	
 	
-	public static void CCP(String CheckIn, String CheckOut, String Price) throws SQLException  {
-		//this method is to collect and update SQL statement 
 	
-		/*
-		String query = null;
-		Statement St = null;					
-		try {
-			St = connection.createStatement();
-			query = "update tbltest set CheckIn = '" + CheckIn + "',CheckOut = '" + CheckOut + "' where price = '" + Price + "'";
-		} catch (SQLException e) {
-			JOptionPane.showMessageDialog(mainpage, e);
-		}
-		
-		finally {
-			connection.close();
-			St.close();
-		}
-		*/
-		
-	//end of method
-	}
 	
 	public void tablePropertyChange(java.beans.PropertyChangeEvent evt) {
 		
@@ -220,20 +184,17 @@ public class MainPage {
 					
 						try {
 							String query =  "Update mainpage set CheckIn='"+ tbCheckInE.getText()+"' ,CheckOut='" + tbCheckOutE.getText() +"' ,Price='" +tbPriceE.getText() + "'where Row = '"+tbRowE.getText()+"' ";
-						    PreparedStatement pst = connection.prepareStatement(query); //TODO: remove pull data from BookingAdd class
+						    PreparedStatement pst = connection.prepareStatement(query); 
 						    
 						    pst.execute();
 						    
 							
 							JOptionPane.showMessageDialog(null, "Data Updated");
 							
-						//	pst.close();
-						//	connection.close();
-							
 						} catch (Exception e2) {
 							e2.printStackTrace();
-						}
-				}
+						 }
+				        }
 						else if(tbRowE.getText().isEmpty() == true) {
 							
 							JOptionPane.showMessageDialog(null, "Please insert a row number");
@@ -243,9 +204,7 @@ public class MainPage {
 						
 						else if(CheckInCheck == false && CheckOutCheck == false ) {
 							
-							JOptionPane.showMessageDialog(null, "Please use correct date format");
-						
-							
+							JOptionPane.showMessageDialog(null, "Please use correct date format");				
 							
 						}
 				}
@@ -270,10 +229,10 @@ public class MainPage {
 		lblNewLabel_2_1.setForeground(Color.RED);
 		lblNewLabel_2_1.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		
-		JLabel lblNewLabel_3 = new JLabel("CheckIn time:");
+		JLabel lblNewLabel_3 = new JLabel("Check in time:");
 		lblNewLabel_3.setForeground(new Color(255, 255, 0));
 		
-		JLabel lblNewLabel_4 = new JLabel("CheckOut time:");
+		JLabel lblNewLabel_4 = new JLabel("Check out time:");
 		lblNewLabel_4.setForeground(new Color(255, 255, 0));
 		
 		tbCheckOutE = new JTextField();
@@ -287,12 +246,12 @@ public class MainPage {
 		
 		JButton btnDelete = new JButton("Delete ");
 		btnDelete.addActionListener(new ActionListener() {
+			
 			public void actionPerformed(ActionEvent e) {
 				
-				BookingAdd a = new BookingAdd();
 				try {
 					String query =  "delete from mainpage where Row='"+tbRowE.getText()+"'";
-				    PreparedStatement pst = connection.prepareStatement(query); //TODO: remove pull data from BookingAdd class
+				    PreparedStatement pst = connection.prepareStatement(query); 
 				    
 				    pst.execute();
 				    
@@ -311,14 +270,18 @@ public class MainPage {
 			
 		});
 		
-		JButton btnPastBookings = new JButton("Past Bookings");
+		JButton btnPastBookings = new JButton("Booking history");
 		btnPastBookings.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
 				mainpage.dispose();
 				
+				PastBookings pastbookings = new PastBookings();
+			
 				
+				pastbookings.pastbookings.setVisible(true);
 			}
+			
 		});
 		GroupLayout groupLayout = new GroupLayout(mainpage.getContentPane());
 		groupLayout.setHorizontalGroup(
@@ -328,47 +291,49 @@ public class MainPage {
 					.addComponent(btnNewReservation, GroupLayout.DEFAULT_SIZE, 734, Short.MAX_VALUE)
 					.addGap(1781))
 				.addGroup(groupLayout.createSequentialGroup()
-					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING, false)
-						.addGroup(groupLayout.createSequentialGroup()
-							.addContainerGap()
-							.addComponent(lblEditData)
-							.addPreferredGap(ComponentPlacement.RELATED))
-						.addGroup(groupLayout.createSequentialGroup()
-							.addGap(240)
-							.addComponent(lblNewLabel)
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(lblNewLabel_2_1, GroupLayout.PREFERRED_SIZE, 16, GroupLayout.PREFERRED_SIZE)
-							.addGap(18)
-							.addComponent(tbRowE, GroupLayout.PREFERRED_SIZE, 119, GroupLayout.PREFERRED_SIZE)
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(lblNewLabel_3, GroupLayout.PREFERRED_SIZE, 74, GroupLayout.PREFERRED_SIZE)
-							.addPreferredGap(ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-							.addComponent(tbCheckInE, GroupLayout.PREFERRED_SIZE, 129, GroupLayout.PREFERRED_SIZE)
-							.addGap(19)))
-					.addComponent(lblNewLabel_4, GroupLayout.PREFERRED_SIZE, 89, GroupLayout.PREFERRED_SIZE)
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(tbCheckOutE, GroupLayout.PREFERRED_SIZE, 118, GroupLayout.PREFERRED_SIZE)
-					.addPreferredGap(ComponentPlacement.UNRELATED)
-					.addComponent(lblNewLabel_5, GroupLayout.PREFERRED_SIZE, 46, GroupLayout.PREFERRED_SIZE)
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(tbPriceE, GroupLayout.PREFERRED_SIZE, 125, GroupLayout.PREFERRED_SIZE)
-					.addGap(235)
-					.addComponent(btnSave, GroupLayout.DEFAULT_SIZE, 346, Short.MAX_VALUE)
-					.addGap(254)
-					.addComponent(btnDelete, GroupLayout.DEFAULT_SIZE, 356, Short.MAX_VALUE)
-					.addGap(264))
-				.addGroup(groupLayout.createSequentialGroup()
 					.addGap(29)
 					.addComponent(btnRefresh, GroupLayout.DEFAULT_SIZE, 625, Short.MAX_VALUE)
 					.addGap(1890))
 				.addGroup(groupLayout.createSequentialGroup()
-					.addGap(29)
-					.addComponent(scrollPane_1, GroupLayout.DEFAULT_SIZE, 2493, Short.MAX_VALUE)
-					.addGap(22))
-				.addGroup(Alignment.LEADING, groupLayout.createSequentialGroup()
 					.addGap(40)
-					.addComponent(btnPastBookings, GroupLayout.PREFERRED_SIZE, 114, GroupLayout.PREFERRED_SIZE)
-					.addContainerGap(2390, Short.MAX_VALUE))
+					.addComponent(btnPastBookings, GroupLayout.PREFERRED_SIZE, 193, GroupLayout.PREFERRED_SIZE)
+					.addContainerGap(2311, Short.MAX_VALUE))
+				.addGroup(groupLayout.createSequentialGroup()
+					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+						.addGroup(groupLayout.createSequentialGroup()
+							.addGap(29)
+							.addComponent(scrollPane_1, GroupLayout.DEFAULT_SIZE, 2251, Short.MAX_VALUE)
+							.addGap(0))
+						.addGroup(groupLayout.createSequentialGroup()
+							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING, false)
+								.addGroup(groupLayout.createSequentialGroup()
+									.addContainerGap()
+									.addComponent(lblEditData)
+									.addPreferredGap(ComponentPlacement.RELATED))
+								.addGroup(groupLayout.createSequentialGroup()
+									.addGap(240)
+									.addComponent(lblNewLabel)
+									.addPreferredGap(ComponentPlacement.RELATED)
+									.addComponent(lblNewLabel_2_1, GroupLayout.PREFERRED_SIZE, 16, GroupLayout.PREFERRED_SIZE)
+									.addGap(18)
+									.addComponent(tbRowE, GroupLayout.PREFERRED_SIZE, 119, GroupLayout.PREFERRED_SIZE)
+									.addPreferredGap(ComponentPlacement.RELATED)
+									.addComponent(lblNewLabel_3, GroupLayout.PREFERRED_SIZE, 74, GroupLayout.PREFERRED_SIZE)
+									.addPreferredGap(ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+									.addComponent(tbCheckInE, GroupLayout.PREFERRED_SIZE, 129, GroupLayout.PREFERRED_SIZE)
+									.addGap(19)))
+							.addComponent(lblNewLabel_4, GroupLayout.PREFERRED_SIZE, 89, GroupLayout.PREFERRED_SIZE)
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addComponent(tbCheckOutE, GroupLayout.PREFERRED_SIZE, 118, GroupLayout.PREFERRED_SIZE)
+							.addPreferredGap(ComponentPlacement.UNRELATED)
+							.addComponent(lblNewLabel_5, GroupLayout.PREFERRED_SIZE, 46, GroupLayout.PREFERRED_SIZE)
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addComponent(tbPriceE, GroupLayout.PREFERRED_SIZE, 125, GroupLayout.PREFERRED_SIZE)
+							.addGap(235)
+							.addComponent(btnSave, GroupLayout.DEFAULT_SIZE, 346, Short.MAX_VALUE)
+							.addGap(254)
+							.addComponent(btnDelete, GroupLayout.DEFAULT_SIZE, 356, Short.MAX_VALUE)))
+					.addGap(264))
 		);
 		groupLayout.setVerticalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)

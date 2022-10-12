@@ -7,8 +7,10 @@ import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
 import javax.swing.table.TableModel;
 
+import connections.SqliteLoginConnection;
+import connections.SqliteMainPageConnection;
+import connections.SqlitePastBookingsConnection;
 import exceptions.TimeFormatException;
-import loginpage.SqliteLoginConnection;
 import net.proteanit.sql.DbUtils;
 
 import javax.swing.JLabel;
@@ -30,11 +32,11 @@ public class BookingAdd {
 	private JTextField tbCheckOut;
 	private JTextField tbPrice;
 	private JButton btnAdd;
-	public static String[] pullData; // pulls data from data[]
 	public static boolean Record; // establishes if there is a record
 	public static String cmd; // fetches action command 
 	public static int count; // makes sure there is only one table of one input
 	Connection connection = null;
+	Connection connection2 = null;
 	private JTextField tbRowId;
 	
 	//function to store input data in array
@@ -48,12 +50,10 @@ public class BookingAdd {
 	
 	
 	// function to go back to mainpage
-	public static void back() {
+	private static void back() {
 		
 		bookingadd.dispose();
-		
-		MainPage mainpage = new MainPage();
-		
+			
 		SwingUtilities.updateComponentTreeUI(MainPage.mainpage);
 		
 		MainPage.mainpage.setVisible(true);
@@ -93,7 +93,7 @@ public class BookingAdd {
 	public BookingAdd() {
 		initialize();
 		connection = SqliteMainPageConnection.dbConnector();
-		
+		connection2 = SqlitePastBookingsConnection.dbConnector();		
 	}
 
 	/**
@@ -178,10 +178,16 @@ public class BookingAdd {
 				else {
 					
 					
+					
+					
+					
+					
 									
 					
 					
 					try {
+						
+						
 						String query =  "insert into mainpage (Row,CheckIn,CheckOut,Price) values (?,?,?,?)";
 					    PreparedStatement pst = connection.prepareStatement(query); //TODO: remove pull data from BookingAdd class
 					    pst.setString(1, tbRowId.getText());
@@ -197,11 +203,34 @@ public class BookingAdd {
 						pst.close();
 						connection.close();
 						
+						
 					} catch (SQLException e2) {
 						JOptionPane.showMessageDialog(null, "Please input a unique Row number!");
+						
+						
+
 					}
 					
+					try {
+						String query1 =  "insert into pastbookings (Row,CheckIn,CheckOut,Price) values (?,?,?,?)";
+					    PreparedStatement pst1 = connection2.prepareStatement(query1); //TODO: remove pull data from BookingAdd class
+					    pst1.setString(1, tbRowId.getText());
+					    pst1.setString(2, getTbCheckIn().getText());
+					    pst1.setString(3, tbCheckOut.getText());
+					    pst1.setString(4, tbPrice.getText());
+					    
+					    pst1.execute();					    
+						
+						pst1.close();
+						connection2.close();
+						
+						
+						
+					}
+						catch(SQLException e3){
 							
+							
+						}	
 					
 				
 					

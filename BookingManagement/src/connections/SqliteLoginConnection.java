@@ -1,4 +1,4 @@
-package ui;
+package connections;
 
 import java.io.File;
 import java.sql.Connection;
@@ -7,18 +7,21 @@ import java.sql.SQLException;
 
 import javax.swing.JOptionPane;
 
-public class SqliteMainPageConnection {
+public class SqliteLoginConnection {
 	
-	static String filePath = "MainPage.db";
+    /**
+     * Connect to a sample database
+     */
+	static String filePath = "Login.db";
 	static String workingDirectory = System.getProperty("user.dir");
-	static File file = new File(workingDirectory+"\\Resources",filePath);
+	static File file= new File(workingDirectory+"\\Resources",filePath); // file provides the whole directory to file
 	static String fileString = file.toString();
 	
-	Connection conn = null;
+			Connection conn = null;
     public static Connection dbConnector() {
     	try {
     		Class.forName("org.sqlite.JDBC");
-    		Connection conn = DriverManager.getConnection("jdbc:sqlite:" +fileString);//"jdbc:sqlite:C:\\Users\\alex\\OneDrive\\Desktop\\Sqlitedb\\MainPage.db"
+    		Connection conn = DriverManager.getConnection("jdbc:sqlite:" +fileString); //jdbc:sqlite:C:\\Users\\alex\\OneDrive\\Desktop\\Sqlitedb\\Login.db"
     		//JOptionPane.showMessageDialog(null, "Connection successful");
     		return conn;
 			

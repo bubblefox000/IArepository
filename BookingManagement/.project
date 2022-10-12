@@ -14,4 +14,11 @@
 	<natures>
 		<nature>org.eclipse.jdt.core.javanature</nature>
 	</natures>
+	<linkedResources>
+		<link>
+			<name>Resources/PastBookings.db</name>
+			<type>1</type>
+			<locationURI>PARENT-4-PROJECT_LOC/OneDrive/Desktop/Project%20folder/Resources/PastBookings.db</locationURI>
+		</link>
+	</linkedResources>
 </projectDescription>

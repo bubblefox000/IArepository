@@ -1,4 +1,4 @@
-package loginpage;
+package ui;
 
 
 import java.awt.EventQueue;
@@ -12,7 +12,8 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
-import ui.MainPage;
+
+import connections.SqliteLoginConnection;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
