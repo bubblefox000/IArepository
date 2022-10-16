@@ -38,6 +38,8 @@ public class BookingAdd {
 	Connection connection = null;
 	Connection connection2 = null;
 	private JTextField tbRowId;
+	private JTextField tbName;
+	private JTextField tbContact;
 	
 	//function to store input data in array
 	public static String[] data(String CheckIn, String CheckOut, String Price) {
@@ -103,7 +105,7 @@ public class BookingAdd {
 		
 		
 		bookingadd = new JFrame();
-		bookingadd.setBounds(100, 100, 450, 300);
+		bookingadd.setBounds(100, 100, 566, 367);
 		bookingadd.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		bookingadd.getContentPane().setLayout(null);
 		
@@ -117,21 +119,21 @@ public class BookingAdd {
 		bookingadd.getContentPane().add(lblNewLabel);
 		
 		JLabel lblNewLabel_1 = new JLabel("Time of check out:");
-		lblNewLabel_1.setBounds(260, 65, 135, 14);
+		lblNewLabel_1.setBounds(340, 65, 135, 14);
 		bookingadd.getContentPane().add(lblNewLabel_1);
 		
 		tbCheckOut = new JTextField();
-		tbCheckOut.setBounds(260, 90, 86, 20);
+		tbCheckOut.setBounds(340, 90, 86, 20);
 		bookingadd.getContentPane().add(tbCheckOut);
 		tbCheckOut.setColumns(10);
 		
 		tbPrice = new JTextField();
-		tbPrice.setBounds(140, 90, 86, 20);
+		tbPrice.setBounds(179, 90, 86, 20);
 		bookingadd.getContentPane().add(tbPrice);
 		tbPrice.setColumns(10);
 		
 		JLabel lblNewLabel_2 = new JLabel("Price($):");
-		lblNewLabel_2.setBounds(140, 65, 86, 14);
+		lblNewLabel_2.setBounds(179, 65, 86, 14);
 		bookingadd.getContentPane().add(lblNewLabel_2);
 		
 		JButton btnBackButton = new JButton("Back \u23CE");
@@ -142,7 +144,7 @@ public class BookingAdd {
 
 			}
 		});
-		btnBackButton.setBounds(260, 195, 89, 23);
+		btnBackButton.setBounds(421, 261, 89, 23);
 		bookingadd.getContentPane().add(btnBackButton);
 		
 		btnAdd = new JButton("Add");
@@ -188,12 +190,14 @@ public class BookingAdd {
 					try {
 						
 						
-						String query =  "insert into mainpage (Row,CheckIn,CheckOut,Price) values (?,?,?,?)";
+						String query =  "insert into mainpage (Room_number,Check_In,Check_Out,Price,Name,Contact_Number) values (?,?,?,?,?,?)";
 					    PreparedStatement pst = connection.prepareStatement(query); //TODO: remove pull data from BookingAdd class
 					    pst.setString(1, tbRowId.getText());
 					    pst.setString(2, getTbCheckIn().getText());
 					    pst.setString(3, tbCheckOut.getText());
 					    pst.setString(4, tbPrice.getText());
+					    pst.setString(5, tbName.getText());
+					    pst.setString(6, tbContact.getText());
 					    
 					    pst.execute();
 					    
@@ -204,19 +208,35 @@ public class BookingAdd {
 						connection.close();
 						
 						
-					} catch (SQLException e2) {
-						JOptionPane.showMessageDialog(null, "Please input a unique Row number!");
+					} catch (SQLException sqe) {
+						int ErrorCode = sqe.getErrorCode();
+						
+						if(ErrorCode == 19) {
+							JOptionPane.showMessageDialog(null, "Please input a unique Room number!");
+							
+						}
+						System.out.println("Error Code = " + ErrorCode);
+						
+						if(ErrorCode != 19) {
+							
+							JOptionPane.showMessageDialog(null, "Unknown Error");
+						}
+						
+						
 						
 						
 
 					}
 					
 					try {
-						String query1 =  "insert into pastbookings (CheckIn,CheckOut,Price) values (?,?,?)";
+						String query1 =  "insert into pastbookings (Room_number,Check_In,Check_Out,Price,Name,Contact_Number) values (?,?,?,?,?,?)";
 					    PreparedStatement pst1 = connection2.prepareStatement(query1); //TODO: remove pull data from BookingAdd class
-					    pst1.setString(1, getTbCheckIn().getText());
-					    pst1.setString(2, tbCheckOut.getText());
-					    pst1.setString(3, tbPrice.getText());
+					    pst1.setString(1, tbRowId.getText());
+					    pst1.setString(2, getTbCheckIn().getText());
+					    pst1.setString(3, tbCheckOut.getText());
+					    pst1.setString(4, tbPrice.getText());
+					    pst1.setString(5, tbName.getText());
+					    pst1.setString(6, tbContact.getText());
 					    
 					    pst1.execute();					    
 						
@@ -227,6 +247,8 @@ public class BookingAdd {
 						
 					}
 						catch(SQLException e3){
+							
+							JOptionPane.showMessageDialog(null, "Unknown Error");
 							
 							
 						}	
@@ -254,21 +276,39 @@ public class BookingAdd {
 				
 			}
 		});
-		btnAdd.setBounds(17, 195, 89, 23);
+		btnAdd.setBounds(17, 261, 89, 23);
 		bookingadd.getContentPane().add(btnAdd);
 		
-		JLabel lblNewLabel_3 = new JLabel("Time should be in hour, month day, year");
+		JLabel lblNewLabel_3 = new JLabel("Time should be in hour, month day, year format");
 		lblNewLabel_3.setBounds(36, 29, 347, 14);
 		bookingadd.getContentPane().add(lblNewLabel_3);
 		
 		tbRowId = new JTextField();
-		tbRowId.setBounds(140, 150, 86, 20);
+		tbRowId.setBounds(152, 197, 86, 20);
 		bookingadd.getContentPane().add(tbRowId);
 		tbRowId.setColumns(10);
 		
-		JLabel lblNewLabel_4 = new JLabel("Row Id:");
-		lblNewLabel_4.setBounds(84, 153, 46, 14);
+		JLabel lblNewLabel_4 = new JLabel("Room number:");
+		lblNewLabel_4.setBounds(36, 200, 108, 14);
 		bookingadd.getContentPane().add(lblNewLabel_4);
+		
+		JLabel lblName = new JLabel("Name:");
+		lblName.setBounds(42, 154, 46, 14);
+		bookingadd.getContentPane().add(lblName);
+		
+		tbName = new JTextField();
+		tbName.setBounds(107, 151, 86, 20);
+		bookingadd.getContentPane().add(tbName);
+		tbName.setColumns(10);
+		
+		JLabel lblNumber = new JLabel("Contact number:");
+		lblNumber.setBounds(287, 154, 108, 14);
+		bookingadd.getContentPane().add(lblNumber);
+		
+		tbContact = new JTextField();
+		tbContact.setBounds(405, 151, 86, 20);
+		bookingadd.getContentPane().add(tbContact);
+		tbContact.setColumns(10);
 	}
 
 
