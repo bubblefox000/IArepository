@@ -106,8 +106,8 @@ public class PastBookings {
 	 */
 	private void initialize() {
 		pastbookings = new JFrame();
-		pastbookings.setBounds(100, 100, 2560, 1440);
-		pastbookings.setExtendedState(JFrame.MAXIMIZED_BOTH);
+		pastbookings.setBounds(100, 100, 1920, 1080);
+		//pastbookings.setExtendedState(JFrame.MAXIMIZED_BOTH);
 		pastbookings.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		JScrollPane scrollPane_1 = new JScrollPane();
@@ -186,32 +186,30 @@ public class PastBookings {
 		});
 		GroupLayout groupLayout = new GroupLayout(pastbookings.getContentPane());
 		groupLayout.setHorizontalGroup(
-			groupLayout.createParallelGroup(Alignment.LEADING)
+			groupLayout.createParallelGroup(Alignment.TRAILING)
 				.addGroup(groupLayout.createSequentialGroup()
 					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
 						.addGroup(groupLayout.createSequentialGroup()
-							.addGap(960)
-							.addComponent(lblNewLabel_1, GroupLayout.PREFERRED_SIZE, 186, GroupLayout.PREFERRED_SIZE))
-						.addGroup(groupLayout.createSequentialGroup()
 							.addGap(77)
-							.addComponent(scrollPane_1, GroupLayout.PREFERRED_SIZE, 1920, GroupLayout.PREFERRED_SIZE))
+							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+								.addGroup(groupLayout.createSequentialGroup()
+									.addComponent(btnRefresh, GroupLayout.PREFERRED_SIZE, 113, GroupLayout.PREFERRED_SIZE)
+									.addPreferredGap(ComponentPlacement.UNRELATED)
+									.addComponent(btnRemoveAll, GroupLayout.PREFERRED_SIZE, 123, GroupLayout.PREFERRED_SIZE))
+								.addComponent(btnBack, GroupLayout.PREFERRED_SIZE, 419, GroupLayout.PREFERRED_SIZE)
+								.addComponent(scrollPane_1, GroupLayout.DEFAULT_SIZE, 1817, Short.MAX_VALUE)))
 						.addGroup(groupLayout.createSequentialGroup()
-							.addGap(77)
-							.addComponent(btnRefresh, GroupLayout.PREFERRED_SIZE, 113, GroupLayout.PREFERRED_SIZE)
-							.addPreferredGap(ComponentPlacement.UNRELATED)
-							.addComponent(btnRemoveAll, GroupLayout.PREFERRED_SIZE, 123, GroupLayout.PREFERRED_SIZE))
-						.addGroup(groupLayout.createSequentialGroup()
-							.addGap(77)
-							.addComponent(btnBack, GroupLayout.PREFERRED_SIZE, 419, GroupLayout.PREFERRED_SIZE)))
-					.addContainerGap(547, Short.MAX_VALUE))
+							.addGap(856)
+							.addComponent(lblNewLabel_1, GroupLayout.PREFERRED_SIZE, 186, GroupLayout.PREFERRED_SIZE)))
+					.addContainerGap())
 		);
 		groupLayout.setVerticalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
 				.addGroup(groupLayout.createSequentialGroup()
 					.addGap(48)
 					.addComponent(lblNewLabel_1, GroupLayout.PREFERRED_SIZE, 14, GroupLayout.PREFERRED_SIZE)
-					.addGap(26)
-					.addComponent(scrollPane_1, GroupLayout.PREFERRED_SIZE, 416, GroupLayout.PREFERRED_SIZE)
+					.addPreferredGap(ComponentPlacement.UNRELATED)
+					.addComponent(scrollPane_1, GroupLayout.PREFERRED_SIZE, 431, GroupLayout.PREFERRED_SIZE)
 					.addGap(26)
 					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
 						.addComponent(btnRefresh)

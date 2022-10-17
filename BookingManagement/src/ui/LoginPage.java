@@ -103,7 +103,7 @@ public class LoginPage {
 					   JOptionPane.showMessageDialog(null, "Duplicate Username and password");					   					 				
 				}
 				   else {
-					      JOptionPane.showMessageDialog(btnLogin, "Username and password is not correct");
+					      JOptionPane.showMessageDialog(btnLogin, "Username or password is not correct");
 					   }
 				   //closes the connection with the database for future use
 				   rs.close();

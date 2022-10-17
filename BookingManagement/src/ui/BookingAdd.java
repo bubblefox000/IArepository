@@ -106,7 +106,7 @@ public class BookingAdd {
 		
 		bookingadd = new JFrame();
 		bookingadd.setBounds(100, 100, 566, 367);
-		bookingadd.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		//bookingadd.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		bookingadd.getContentPane().setLayout(null);
 		
 		setTbCheckIn(new JTextField());
